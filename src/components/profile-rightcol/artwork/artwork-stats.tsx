@@ -1,10 +1,11 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Checkbox from "../../old-checkbox/checkbox";
 import OptionsTable from "../../options-table/options-table";
 import "./artwork-stats.css";
-import downloadArtwork from "../../panel/artwork/functions/downloadArtwork";
+import downloadArtwork from "../../../functions/artwork/downloadArtwork";
 import useGlobalStore from "../../../store/useGlobalStore";
-import measureArtworkBottomRightSpace from "../../panel/artwork/functions/measureArtworkBottomRightSpace";
+import measureArtworkBottomRightSpace from "../../../functions/artwork/measureArtworkBottomRightSpace";
+import WarningBox from "../../warning-box/warning-box";
 
 function formatResolution(value: { width: number; height: number }) {
   return `${value.width} x ${value.height}`;
@@ -12,17 +13,50 @@ function formatResolution(value: { width: number; height: number }) {
 
 export default function ArtworkStats() {
   const checkboxRef = useRef<HTMLInputElement>(null);
+  const [disableCheckbox, setDisableCheckbox] = useState<boolean>(false);
   const { artwork, file, setArtwork } = useGlobalStore();
 
-  console.log("artwork", artwork);
-
   async function measureBottomSpace() {
-    await measureArtworkBottomRightSpace({ artwork, setArtwork });
+    // Measure bottom space if the image is measured first. This also disables
+    // the checkbox if there's no file selected
+    if (artwork.isMeasured) {
+      // Prevent checkbox spam
+      setDisableCheckbox(true);
+
+      // Measure the bottom space and store the cropped image string
+      const rightColBottomSpaceImg = await measureArtworkBottomRightSpace(artwork);
+
+      // Update the right col image state
+      setArtwork({
+        bottomRightSpaceChecked: !artwork.bottomRightSpaceChecked,
+        imageLinks: {
+          ...artwork.imageLinks,
+          rightColCropped: rightColBottomSpaceImg,
+        },
+      });
+
+      setDisableCheckbox(false);
+    }
   }
 
   return (
     <div className="profile_rightcol">
       <div className="responsive_status_info">
+        <WarningBox
+          title="Warning"
+          textContent={[
+            {
+              text: "The image is above 8MB and you won't be able to add it to Steam.",
+            },
+            {
+              text: "It can be cropped but it won't be able to be uploaded.",
+              highlighted: true,
+            },
+            {
+              text: "That's all :D",
+            },
+          ]}
+        />
         <OptionsTable
           tableHead={{ key: "PANEL DATA", value: "VALUE" }}
           tableBody={[
@@ -36,9 +70,7 @@ export default function ArtworkStats() {
             artwork.imageResolutions.originalResized
               ? {
                   key: "Original Resized",
-                  value: formatResolution(
-                    artwork.imageResolutions.originalResized
-                  ),
+                  value: formatResolution(artwork.imageResolutions.originalResized),
                 }
               : {
                   key: undefined,
@@ -63,7 +95,17 @@ export default function ArtworkStats() {
             },
           ]}
         />
-        <Checkbox id="testing" ref={checkboxRef} onClick={measureBottomSpace}>
+        <Checkbox
+          id="bottomRightSpace"
+          ref={checkboxRef}
+          onClick={async () => {
+            if (!disableCheckbox) {
+              await measureBottomSpace();
+            }
+          }}
+          checked={artwork.bottomRightSpaceChecked}
+          disabled={disableCheckbox}
+        >
           Bottom right space
         </Checkbox>
 

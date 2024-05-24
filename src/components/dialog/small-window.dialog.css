@@ -22,7 +22,8 @@
   background: var(--gradient-background);
   border: 1px outset var(--light-gray);
   width: 570px;
-  height: 200px;
+  min-height: 200px;
+  max-height: fit-content;
   display: flex;
   flex-direction: column;
 }
@@ -46,7 +47,7 @@
 .small-window-dialog-disabled-btn {
   border: 1px solid black;
   margin-left: auto;
-  margin-top: auto;
+  margin-top: 15px;
   margin-right: 30px;
   margin-bottom: 20px;
 }

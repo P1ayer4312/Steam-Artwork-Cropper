@@ -1,18 +1,12 @@
-import CustomCanvas from "../../../../classes/CustomCanvas";
-import getComputedValueFor from "../../../../functions/getComputedValueFor";
-import { ArtworkShowcaseDefs } from "../../../../store/types/artworkShowcaseData";
-import { FileData } from "../../../../store/types/useGlobalStore";
+import CustomCanvas from "../../classes/CustomCanvas";
+import getComputedValueFor from "../getComputedValueFor";
+import { ArtworkShowcaseData } from "../../store/types/artworkShowcaseData";
 
-interface MeasureProps extends ArtworkShowcaseDefs {
-  file: FileData;
-}
-
-async function measureArtworkBottomRightSpace({ artwork, setArtwork, file }: MeasureProps) {
-  return new Promise<void>((resolve) => {
+async function measureArtworkBottomRightSpace(artwork: ArtworkShowcaseData): Promise<string> {
+  return new Promise<string>((resolve) => {
     const rightColImage = artwork.panelElementRefs.rightColImg!;
-    console.log(rightColImage);
     const rightColContainer = artwork.panelElementRefs.rightColContainer!;
-    // prettier-ignore
+
     const primaryImgHeight = getComputedValueFor(artwork.panelElementRefs.primaryImg!, "height") as number;
     const rightColCanvas = new CustomCanvas(
       rightColImage,
@@ -30,12 +24,13 @@ async function measureArtworkBottomRightSpace({ artwork, setArtwork, file }: Mea
         rightColImage.removeEventListener("load", measureHeight);
 
         const tempImg = new Image();
+        tempImg.addEventListener("load", () => {
+          rightColCanvas.drawImage(tempImg, 0, 0);
+          const rightColDataUrl = rightColCanvas.toDataURL();
+          resolve(rightColDataUrl);
+        });
+
         tempImg.src = artwork.imageLinks.rightCol;
-
-        rightColCanvas.drawImage(tempImg, 0, 0);
-        rightColImage.src = rightColCanvas.toDataURL();
-
-        resolve();
       }
     }
 

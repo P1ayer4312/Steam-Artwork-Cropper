@@ -6,13 +6,14 @@ export type Resolution = {
 export type ArtworkShowcaseData = {
   isLoaded: boolean;
   isMeasured: boolean;
-  isOriginalResized: boolean;
+  bottomRightSpaceChecked: boolean;
 
   imageLinks: {
     /** @default "./img/1.jpg" */
     primary: string;
     /** @default "./img/2.jpg" */
     rightCol: string;
+    rightColCropped: string | undefined;
   };
 
   /** Cropped images size in kB */
@@ -47,12 +48,14 @@ export type MeasuresData = {
     primary: string;
     /** @default "./img/2.jpg" */
     rightCol: string;
+    rightColCropped: string | undefined;
   };
 
   imageResolutions: {
     originalResized?: Resolution;
     primary: Resolution;
     rightCol: Resolution;
+    rightColBottomSpace?: Resolution;
   };
 
   imageSize: {

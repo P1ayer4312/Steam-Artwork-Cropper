@@ -4,8 +4,7 @@ import getRandomIntInclusive from "../../../functions/getRandomIntInclusive";
 
 export default function ProfileHeader() {
   const randomBadge = useRef<string>(
-    `lvl_${getRandomIntInclusive(1, 52) * 100} ` +
-      `lvl_plus_${getRandomIntInclusive(1, 9) * 10}`
+    `lvl_${getRandomIntInclusive(1, 52) * 100} ` + `lvl_plus_${getRandomIntInclusive(1, 9) * 10}`
   );
 
   return (
@@ -24,17 +23,13 @@ export default function ProfileHeader() {
                 </div>
 
                 <div className="header_real_name ellipsis">
-                  <bdi>(ง'̀-'́)ง</bdi>{" "}
-                  <img className="profile_flag" src="./img/mk.gif" alt="" />{" "}
-                  Macedonia, The Former Yugoslav Republic of
+                  <bdi>(ง'̀-'́)ง</bdi> <img className="profile_flag" src="./img/mk.gif" alt="" /> Macedonia, The
+                  Former Yugoslav Republic of
                 </div>
               </a>
 
-              <div className="playerAvatar profile_header_size online">
+              <div className="playerAvatar profile_header_size">
                 <div className="playerAvatarAutoSizeInner">
-                  <div className="profile_avatar_frame">
-                    <img alt="" src="./img/profile_img_frame.png" />
-                  </div>
                   <img alt="" src="./img/profile_img_full.jpg" />
                 </div>
               </div>
@@ -44,9 +39,7 @@ export default function ProfileHeader() {
                   <span className="persona_level_btn">
                     <div className="persona_name persona_level">
                       Level{" "}
-                      <div
-                        className={`friendPlayerLevel ${randomBadge.current}`}
-                      >
+                      <div className={`friendPlayerLevel ${randomBadge.current}`}>
                         <span className="friendPlayerLevelNum">4312</span>
                       </div>
                     </div>
@@ -59,11 +52,7 @@ export default function ProfileHeader() {
                       className="favorite_badge"
                     >
                       <div className="favorite_badge_icon">
-                        <img
-                          alt=""
-                          src="./img/github_logo.png"
-                          className="badge_icon small"
-                        />
+                        <img alt="" src="./img/github_logo.png" className="badge_icon small" />
                       </div>
                       <div className="favorite_badge_description">
                         <div className="name ellipsis">GitHub</div>

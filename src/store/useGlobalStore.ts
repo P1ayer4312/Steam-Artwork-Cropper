@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { GlobalStoreValues } from "./types/useGlobalStore";
 
 const useGlobalStore = create<GlobalStoreValues>()((set) => ({
+  // =========================================================
   file: {
     name: "No file chosen",
     data: undefined,
@@ -11,18 +12,23 @@ const useGlobalStore = create<GlobalStoreValues>()((set) => ({
   },
   setFile: (value) => set({ file: value }),
 
+  // =========================================================
   status: "Idle",
   setStatus: (value) => set({ status: value }),
 
+  // =========================================================
   activeTab: "artwork",
   setActiveTab: (value) => set({ activeTab: value }),
 
+  // =========================================================
   artwork: {
     isLoaded: false,
     isMeasured: false,
+    bottomRightSpaceChecked: false,
     imageLinks: {
       primary: "./img/1.jpg",
       rightCol: "./img/2.jpg",
+      rightColCropped: undefined,
     },
 
     imageSize: {
@@ -44,15 +50,15 @@ const useGlobalStore = create<GlobalStoreValues>()((set) => ({
     },
   },
   setArtwork: (value) => {
-    set((state) => ({
-      artwork: { ...state.artwork, ...value },
-    }));
+    set((state) => ({ artwork: { ...state.artwork, ...value } }));
   },
 
+  // =========================================================
   reset: () => {
     set((state) => ({
       artwork: {
         ...state.artwork,
+        bottomRightSpaceChecked: false,
         isMeasured: false,
         imageSize: {
           primary: 0,

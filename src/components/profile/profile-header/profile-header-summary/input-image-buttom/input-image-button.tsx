@@ -43,6 +43,8 @@ export default function InputImageButton() {
             hidden
             style={{ display: "none" }}
             onChange={onInputFileChange}
+            // TODO: Decide if we'll support more file types
+            accept="image/png, image/jpeg, image/gif"
           />
         </div>
       </div>

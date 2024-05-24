@@ -2,8 +2,7 @@
 
 * {
   border-radius: unset;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
 
 #root {
@@ -27,6 +26,7 @@ body.SteamGreenTheme {
   --white: #ebebeb;
   --checkbox-border-dark: #696c5b;
   --checkbox-border-light: #7f8875;
+  --scoreboard-orange: #f8ab0f;
 }
 
 /* Disable profile gradient*/

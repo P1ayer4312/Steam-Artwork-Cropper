@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import useGlobalStore from "../../../store/useGlobalStore";
-import measureArtworkMedia from "./functions/measureArtworkMedia";
+import measureArtworkMedia from "../../../functions/artwork/measureArtworkMedia";
 
 export default function ArtworkPanel() {
   const primaryImgRef = useRef<HTMLImageElement>(null);
@@ -26,7 +26,7 @@ export default function ArtworkPanel() {
         setStatus("Done");
       }
     })();
-  }, [file, artwork.isMeasured, setArtwork, setStatus, artwork]);
+  }, [file, setArtwork, setStatus, artwork]);
 
   useEffect(() => {
     // Pass refs to panel elements
@@ -56,14 +56,18 @@ export default function ArtworkPanel() {
             <div
               className="screenshot_showcase_rightcol"
               ref={rightColContainerRef}
-              // style={{ border: "1px solid red" }} //TODO: Remove this
+              style={{ border: "1px solid red" }} //TODO: Remove this
             >
               <div className="screenshot_showcase_smallscreenshot showcase_slot">
                 <div className="screenshot_showcase_screenshot modalContentLink">
                   <img
                     width="100%"
                     style={{ maxWidth: "100px" }}
-                    src={artwork.imageLinks.rightCol}
+                    src={
+                      artwork.bottomRightSpaceChecked
+                        ? artwork.imageLinks.rightColCropped
+                        : artwork.imageLinks.rightCol
+                    }
                     ref={rightColImgRef}
                   />
                 </div>

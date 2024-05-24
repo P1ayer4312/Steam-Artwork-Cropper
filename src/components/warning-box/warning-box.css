@@ -1,0 +1,24 @@
+.warning-box-wrapper {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+
+.warning-box-title {
+  color: var(--scoreboard-orange);
+  font-size: 20px;
+  font-weight: bolder;
+  margin: 0 0 15px 0;
+}
+
+.warning-box-text {
+  font-size: 15px;
+  padding: 1px 0;
+  line-height: 22px;
+  color: var(--scoreboard-orange);
+}
+
+.warning-box-text-highlighted {
+  color: var(--white);
+  background-color: rgba(248, 171, 15, 0.4);
+}

@@ -1,8 +1,8 @@
-import CustomCanvas from "../../../../classes/CustomCanvas";
-import getComputedValueFor from "../../../../functions/getComputedValueFor";
-import getImageFileSize from "../../../../functions/getImageFileSize";
-import { MeasuresData, Resolution } from "../../../../store/types/artworkShowcaseData";
-import { FileData } from "../../../../store/types/useGlobalStore";
+import CustomCanvas from "../../classes/CustomCanvas";
+import getComputedValueFor from "../getComputedValueFor";
+import getImageFileSize from "../getImageFileSize";
+import { MeasuresData, Resolution } from "../../store/types/artworkShowcaseData";
+import { FileData } from "../../store/types/useGlobalStore";
 
 export default async function measureArtworkMedia(
   primaryImg: HTMLImageElement,
@@ -84,6 +84,7 @@ export default async function measureArtworkMedia(
         imageLinks: {
           primary: primaryImgDataUrl,
           rightCol: rightColImgDataUrl,
+          rightColCropped: undefined,
         },
         imageResolutions: {
           primary: {
