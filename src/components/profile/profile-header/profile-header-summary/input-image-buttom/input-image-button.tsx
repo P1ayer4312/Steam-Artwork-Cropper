@@ -22,6 +22,7 @@ export default function InputImageButton() {
         dataUrl: mediaData.dataUrl,
         height: mediaData.height,
         width: mediaData.width,
+        fileType: file.type,
       });
 
       reset();

@@ -9,6 +9,7 @@ const useGlobalStore = create<GlobalStoreValues>()((set) => ({
     dataUrl: undefined,
     height: 0,
     width: 0,
+    fileType: "",
   },
   setFile: (value) => set({ file: value }),
 
@@ -35,12 +36,14 @@ const useGlobalStore = create<GlobalStoreValues>()((set) => ({
       primary: 0,
       rightCol: 0,
       original: 0,
+      rightColCropped: 0,
     },
 
     imageResolutions: {
       original: { width: 0, height: 0 },
       primary: { width: 0, height: 0 },
       rightCol: { width: 0, height: 0 },
+      rightColCroppedHeight: 0,
     },
 
     panelElementRefs: {
@@ -64,11 +67,13 @@ const useGlobalStore = create<GlobalStoreValues>()((set) => ({
           primary: 0,
           rightCol: 0,
           original: 0,
+          rightColCropped: 0,
         },
         imageResolutions: {
           original: { width: 0, height: 0 },
           primary: { width: 0, height: 0 },
           rightCol: { width: 0, height: 0 },
+          rightColCroppedHeight: 0,
         },
       },
     }));

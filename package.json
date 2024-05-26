@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "downloadjs": "^1.4.7",
+    "gifsicle-wasm-browser": "^1.5.16",
     "jszip": "^3.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

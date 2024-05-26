@@ -7,5 +7,3 @@ module.exports = {
     greedy: [/lvl$/, /friendPlayerLevel$/],
   },
 };
-
-//"postbuild": "purgecss --css dist/assets/*.css --content dist/index.html dist/assets/*.js --safelist lvl* --output dist/assets",

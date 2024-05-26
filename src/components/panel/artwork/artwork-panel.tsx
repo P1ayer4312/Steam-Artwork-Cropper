@@ -7,6 +7,9 @@ export default function ArtworkPanel() {
   const rightColImgRef = useRef<HTMLImageElement>(null);
   const rightColContainerRef = useRef<HTMLImageElement>(null);
   const { file, artwork, setArtwork, setStatus } = useGlobalStore();
+  function statusCallback(message: string) {
+    setStatus(message);
+  }
 
   // Used as an event listener for triggering image measurement
   // and loading it on tab change
@@ -15,14 +18,13 @@ export default function ArtworkPanel() {
       if (!artwork.isMeasured && file.data) {
         // Pass the image elements to be used for the measurement
         setStatus("Measuring, please wait....");
-        const measuredData = await measureArtworkMedia(primaryImgRef.current!, rightColImgRef.current!, file);
+        const measuredData = await measureArtworkMedia(primaryImgRef.current!, rightColImgRef.current!, file, statusCallback);
 
-        const data = {
+        setArtwork({
           isMeasured: true,
           ...measuredData,
-        };
+        });
 
-        setArtwork(data);
         setStatus("Done");
       }
     })();
@@ -56,7 +58,6 @@ export default function ArtworkPanel() {
             <div
               className="screenshot_showcase_rightcol"
               ref={rightColContainerRef}
-              style={{ border: "1px solid red" }} //TODO: Remove this
             >
               <div className="screenshot_showcase_smallscreenshot showcase_slot">
                 <div className="screenshot_showcase_screenshot modalContentLink">

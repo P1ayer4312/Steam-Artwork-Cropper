@@ -6,6 +6,7 @@ type FileData = {
   dataUrl: string | undefined;
   width: number;
   height: number;
+  fileType: string;
 };
 
 type FileDefs = {

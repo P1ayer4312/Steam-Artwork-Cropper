@@ -46,6 +46,10 @@ export default class CustomCanvas {
     this.canvas.height = h;
   }
 
+  getHeight(): number {
+    return this.canvas.height;
+  }
+
   /**
    * @param type "image/jpeg" | "image/png"
    * @param quality

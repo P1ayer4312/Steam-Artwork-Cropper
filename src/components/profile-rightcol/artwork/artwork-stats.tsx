@@ -14,28 +14,49 @@ function formatResolution(value: { width: number; height: number }) {
 export default function ArtworkStats() {
   const checkboxRef = useRef<HTMLInputElement>(null);
   const [disableCheckbox, setDisableCheckbox] = useState<boolean>(false);
-  const { artwork, file, setArtwork } = useGlobalStore();
+  const { artwork, file, setArtwork, setStatus } = useGlobalStore();
+
+  // Get the width used for the "original" image
+  const imgWidth = artwork.imageResolutions.originalResized
+    ? artwork.imageResolutions.originalResized.width
+    : file.width;
+
+  const leftOffsetValue = artwork.isMeasured ? imgWidth - artwork.imageResolutions.rightCol.width : 0;
 
   async function measureBottomSpace() {
     // Measure bottom space if the image is measured first. This also disables
     // the checkbox if there's no file selected
-    if (artwork.isMeasured) {
+    if (artwork.isMeasured && artwork.imageLinks.rightColCropped === undefined) {
       // Prevent checkbox spam
       setDisableCheckbox(true);
+      setStatus("Measuring, please wait....");
 
       // Measure the bottom space and store the cropped image string
-      const rightColBottomSpaceImg = await measureArtworkBottomRightSpace(artwork);
+      // prettier-ignore
+      const { rightColDataUrl, rightColHeight, rightColSize } = 
+        await measureArtworkBottomRightSpace(artwork, file.fileType);
 
       // Update the right col image state
       setArtwork({
         bottomRightSpaceChecked: !artwork.bottomRightSpaceChecked,
         imageLinks: {
           ...artwork.imageLinks,
-          rightColCropped: rightColBottomSpaceImg,
+          rightColCropped: rightColDataUrl,
+        },
+        imageResolutions: {
+          ...artwork.imageResolutions,
+          rightColCroppedHeight: rightColHeight,
+        },
+        imageSize: {
+          ...artwork.imageSize,
+          rightColCropped: rightColSize,
         },
       });
 
       setDisableCheckbox(false);
+      setStatus("Done");
+    } else {
+      setArtwork({ bottomRightSpaceChecked: !artwork.bottomRightSpaceChecked });
     }
   }
 
@@ -82,27 +103,32 @@ export default function ArtworkStats() {
             },
             {
               key: "Small Image",
-              value: formatResolution(artwork.imageResolutions.rightCol),
+              value: artwork.bottomRightSpaceChecked
+                ? formatResolution({
+                    width: artwork.imageResolutions.rightCol.width,
+                    height: artwork.imageResolutions.rightColCroppedHeight,
+                  })
+                : formatResolution(artwork.imageResolutions.rightCol),
             },
-            { key: "Left Offset", value: "887" },
+            { key: "Left Offset", value: `${leftOffsetValue}` },
             {
               key: "Big Image Size",
               value: `${artwork.imageSize.primary} kB`,
             },
             {
               key: "Small Image Size",
-              value: `${artwork.imageSize.rightCol} kB`,
+              value: `${
+                artwork.bottomRightSpaceChecked
+                  ? artwork.imageSize.rightColCropped
+                  : artwork.imageSize.rightCol
+              } kB`,
             },
           ]}
         />
         <Checkbox
           id="bottomRightSpace"
           ref={checkboxRef}
-          onClick={async () => {
-            if (!disableCheckbox) {
-              await measureBottomSpace();
-            }
-          }}
+          onClick={measureBottomSpace}
           checked={artwork.bottomRightSpaceChecked}
           disabled={disableCheckbox}
         >

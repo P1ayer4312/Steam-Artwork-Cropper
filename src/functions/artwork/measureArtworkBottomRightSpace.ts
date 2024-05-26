@@ -1,9 +1,16 @@
 import CustomCanvas from "../../classes/CustomCanvas";
 import getComputedValueFor from "../getComputedValueFor";
 import { ArtworkShowcaseData } from "../../store/types/artworkShowcaseData";
+import getImageFileSize from "../getImageFileSize";
 
-async function measureArtworkBottomRightSpace(artwork: ArtworkShowcaseData): Promise<string> {
-  return new Promise<string>((resolve) => {
+export type TMeasuredRightSpaceData = {
+  rightColDataUrl: string;
+  rightColHeight: number;
+  rightColSize: number;
+};
+
+async function measureArtworkBottomRightSpace(artwork: ArtworkShowcaseData, imgType: string) {
+  return new Promise<TMeasuredRightSpaceData>((resolve) => {
     const rightColImage = artwork.panelElementRefs.rightColImg!;
     const rightColContainer = artwork.panelElementRefs.rightColContainer!;
 
@@ -26,8 +33,15 @@ async function measureArtworkBottomRightSpace(artwork: ArtworkShowcaseData): Pro
         const tempImg = new Image();
         tempImg.addEventListener("load", () => {
           rightColCanvas.drawImage(tempImg, 0, 0);
-          const rightColDataUrl = rightColCanvas.toDataURL();
-          resolve(rightColDataUrl);
+          const rightColDataUrl = rightColCanvas.toDataURL(imgType, 1);
+
+          const returnData: TMeasuredRightSpaceData = {
+            rightColDataUrl,
+            rightColHeight: rightColCanvas.getHeight(),
+            rightColSize: getImageFileSize(rightColDataUrl),
+          };
+
+          resolve(returnData);
         });
 
         tempImg.src = artwork.imageLinks.rightCol;
