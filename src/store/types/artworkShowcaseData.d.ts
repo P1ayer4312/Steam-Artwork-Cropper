@@ -17,6 +17,7 @@ export interface MeasuresData {
     primary: Resolution;
     rightCol: Resolution;
     rightColBottomSpace?: Resolution;
+    rightColCroppedHeight: number;
   };
 
   /** Cropped images size in kB */

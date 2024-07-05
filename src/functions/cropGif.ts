@@ -2,7 +2,7 @@ import { Resolution } from "../store/types/artworkShowcaseData";
 import gifsicle from "gifsicle-wasm-browser";
 
 export type TGifProps = {
-  imageData: string | File | Blob | ArrayBuffer;
+  imageData: File | Blob | ArrayBuffer;
   offset?: number;
   resolution?: Resolution;
   resize?: Resolution;

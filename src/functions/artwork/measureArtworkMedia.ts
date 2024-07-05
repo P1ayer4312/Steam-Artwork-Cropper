@@ -91,31 +91,31 @@ export default async function measureArtworkMedia(
         // Check if the gif needs to be resized first
         if (originalResizedValues) {
           statusCallback("Resizing main gif...");
-          gifData = await cropGif({
+          gifData = (await cropGif({
             imageData: gifData,
             resize: originalResizedValues,
-          });
+          })) as File;
         }
 
         statusCallback("Cropping gifs... (1/2)");
-        primaryImgDataUrl = await cropGif({
+        primaryImgDataUrl = (await cropGif({
           imageData: gifData,
           offset: 0,
           resolution: {
             width: primaryImgCanvas.canvas.width,
             height: fileHeight,
           },
-        });
+        })) as string;
 
         statusCallback("Cropping gifs... (2/2)");
-        rightColImgDataUrl = await cropGif({
+        rightColImgDataUrl = (await cropGif({
           imageData: gifData,
           offset: Math.abs(rightColOffset) - 2,
           resolution: {
             width: rightColImgCanvas.canvas.width,
             height: fileHeight,
           },
-        });
+        })) as string;
       } else {
         primaryImgDataUrl = primaryImgCanvas.toDataURL(imgType, 1);
         rightColImgDataUrl = rightColImgCanvas.toDataURL(imgType, 1);
@@ -128,6 +128,7 @@ export default async function measureArtworkMedia(
           rightColCropped: undefined,
         },
         imageResolutions: {
+          rightColCroppedHeight: 0,
           primary: {
             width: primaryImgCanvas.canvas.width,
             height: primaryImgCanvas.canvas.height,

@@ -31,6 +31,7 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "purgecss": "^5.0.0",
     "typescript": "^5.2.2",
-    "vite": "^5.0.12"
+    "vite": "^5.0.12",
+    "vite-bundle-visualizer": "^1.2.1"
   }
 }
