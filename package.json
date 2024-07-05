@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@bmunozg/react-image-area": "^1.1.0",
     "downloadjs": "^1.4.7",
     "gifsicle-wasm-browser": "^1.5.16",
     "jszip": "^3.10.1",

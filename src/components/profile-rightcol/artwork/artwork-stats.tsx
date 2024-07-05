@@ -21,12 +21,17 @@ export default function ArtworkStats() {
     ? artwork.imageResolutions.originalResized.width
     : file.width;
 
-  const leftOffsetValue = artwork.isMeasured ? imgWidth - artwork.imageResolutions.rightCol.width : 0;
+  const leftOffsetValue = artwork.isMeasured
+    ? imgWidth - artwork.imageResolutions.rightCol.width
+    : 0;
 
   async function measureBottomSpace() {
     // Measure bottom space if the image is measured first. This also disables
     // the checkbox if there's no file selected
-    if (artwork.isMeasured && artwork.imageLinks.rightColCropped === undefined) {
+    if (
+      artwork.isMeasured &&
+      artwork.imageLinks.rightColCropped === undefined
+    ) {
       // Prevent checkbox spam
       setDisableCheckbox(true);
       setStatus("Measuring, please wait....");
@@ -34,7 +39,7 @@ export default function ArtworkStats() {
       // Measure the bottom space and store the cropped image string
       // prettier-ignore
       const { rightColDataUrl, rightColHeight, rightColSize } = 
-        await measureArtworkBottomRightSpace(artwork, file.fileType);
+        await measureArtworkBottomRightSpace(artwork, file);
 
       // Update the right col image state
       setArtwork({
@@ -91,7 +96,9 @@ export default function ArtworkStats() {
             artwork.imageResolutions.originalResized
               ? {
                   key: "Original Resized",
-                  value: formatResolution(artwork.imageResolutions.originalResized),
+                  value: formatResolution(
+                    artwork.imageResolutions.originalResized
+                  ),
                 }
               : {
                   key: undefined,

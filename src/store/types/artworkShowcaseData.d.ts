@@ -12,6 +12,7 @@ export interface MeasuresData {
     rightColCropped: string | undefined;
   };
 
+  /** Resolutions of the cropped images displayed on the Steam profile */
   imageResolutions: {
     originalResized?: Resolution;
     primary: Resolution;
