@@ -13,26 +13,28 @@
   },
   "dependencies": {
     "@bmunozg/react-image-area": "^1.1.0",
+    "@ffmpeg/ffmpeg": "^0.12.10",
+    "@ffmpeg/util": "^0.12.1",
     "downloadjs": "^1.4.7",
     "gifsicle-wasm-browser": "^1.5.16",
     "jszip": "^3.10.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "zustand": "^4.5.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/downloadjs": "^1.4.6",
-    "@types/react": "^18.2.48",
-    "@types/react-dom": "^18.2.17",
-    "@typescript-eslint/eslint-plugin": "^6.19.1",
-    "@typescript-eslint/parser": "^6.19.1",
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.55.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
-    "purgecss": "^5.0.0",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.12",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.16.1",
+    "@typescript-eslint/parser": "^7.16.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.8",
+    "purgecss": "^6.0.0",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4",
     "vite-bundle-visualizer": "^1.2.1"
   }
 }

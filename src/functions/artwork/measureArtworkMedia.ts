@@ -3,7 +3,7 @@ import getComputedValueFor from "../getComputedValueFor";
 import getImageFileSize from "../getImageFileSize";
 import { MeasuresData, Resolution } from "../../store/types/artworkShowcaseData";
 import { FileData } from "../../store/types/useGlobalStore";
-import { cropGif } from "../cropGif";
+import { cropGif } from "../gifs/cropGif";
 
 export default async function measureArtworkMedia(
   primaryImg: HTMLImageElement,
