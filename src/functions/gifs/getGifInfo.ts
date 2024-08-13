@@ -1,6 +1,5 @@
-import gifsicleExec from "./gifsicleExec";
+import { gifsicleExec, TGifData } from "./gifsicleExec";
 
-type TGifData = File | Blob | ArrayBuffer;
 /**
  * Returns parsed information for a gif from `'gifsicle --info file.gif'`
  */
@@ -15,6 +14,9 @@ export default async function getGifInfo(gif: TGifData) {
     command: ["--info 1.gif"],
   });
 
+  if (outputLogs.length == 0) {
+    throw new Error("Unable to read the provided gif file");
+  }
   const logs = outputLogs.splice(0, 13).map((el) => {
     // Trim and split all strings to not repeat ourselves
     return el.replace("\n", "").trim().split(" ");

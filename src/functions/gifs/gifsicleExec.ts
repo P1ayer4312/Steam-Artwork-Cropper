@@ -1,7 +1,7 @@
 import gifsicle from "../../modules/gifsicle.min";
 
 type TGifFile = {
-  file: File | Blob | ArrayBuffer;
+  file: TGifData;
   name: string;
 };
 
@@ -15,7 +15,9 @@ type TGifsicleResolve = {
   outputLogs: string[];
 };
 
-export default function gifsicleExec(props: TGifsicleExecProps): Promise<TGifsicleResolve> {
+export type TGifData = File | Blob | ArrayBuffer;
+
+export function gifsicleExec(props: TGifsicleExecProps): Promise<TGifsicleResolve> {
   return gifsicle.run({
     input: props.gifFiles,
     command: props.command,

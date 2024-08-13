@@ -1,6 +1,5 @@
 import { Resolution } from "../../store/types/artworkShowcaseData";
 import gifsicle from "gifsicle-wasm-browser";
-import gifsicleExec from "./gifsicleExec";
 import getGifInfo from "./getGifInfo";
 
 export type TGifProps = {
