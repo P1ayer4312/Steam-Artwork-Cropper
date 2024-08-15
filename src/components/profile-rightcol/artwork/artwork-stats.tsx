@@ -14,24 +14,19 @@ function formatResolution(value: { width: number; height: number }) {
 export default function ArtworkStats() {
   const checkboxRef = useRef<HTMLInputElement>(null);
   const [disableCheckbox, setDisableCheckbox] = useState<boolean>(false);
-  const { artwork, file, setArtwork, setStatus } = useGlobalStore();
+  const { artwork, file, setArtwork, setStatus, setPopupWindowOpen } = useGlobalStore();
 
   // Get the width used for the "original" image
   const imgWidth = artwork.imageResolutions.originalResized
     ? artwork.imageResolutions.originalResized.width
     : file.width;
 
-  const leftOffsetValue = artwork.isMeasured
-    ? imgWidth - artwork.imageResolutions.rightCol.width
-    : 0;
+  const leftOffsetValue = artwork.isMeasured ? imgWidth - artwork.imageResolutions.rightCol.width : 0;
 
   async function measureBottomSpace() {
     // Measure bottom space if the image is measured first. This also disables
     // the checkbox if there's no file selected
-    if (
-      artwork.isMeasured &&
-      artwork.imageLinks.rightColCropped === undefined
-    ) {
+    if (artwork.isMeasured && artwork.imageLinks.rightColCropped === undefined) {
       // Prevent checkbox spam
       setDisableCheckbox(true);
       setStatus("Measuring, please wait....");
@@ -96,9 +91,7 @@ export default function ArtworkStats() {
             artwork.imageResolutions.originalResized
               ? {
                   key: "Original Resized",
-                  value: formatResolution(
-                    artwork.imageResolutions.originalResized
-                  ),
+                  value: formatResolution(artwork.imageResolutions.originalResized),
                 }
               : {
                   key: undefined,
@@ -142,16 +135,27 @@ export default function ArtworkStats() {
           Bottom right space
         </Checkbox>
 
-        <button
-          className="old-button artwork-stats-dl-btn"
-          onClick={() => {
-            const fileName = file.name;
-            downloadArtwork(fileName);
-          }}
-          disabled={file.data === undefined}
-        >
-          Download Images
-        </button>
+        <div className="artwork-stats-buttons-area">
+          <button
+            className="old-button artwork-stats-dl-btn artwork-stats-advanced-btn"
+            onClick={() => setPopupWindowOpen(true)}
+            disabled={false}
+            // disabled={file.data === undefined}
+          >
+            Advanced Tools
+          </button>
+
+          <button
+            className="old-button artwork-stats-dl-btn"
+            onClick={() => {
+              const fileName = file.name;
+              downloadArtwork(fileName);
+            }}
+            disabled={file.data === undefined}
+          >
+            Download Images
+          </button>
+        </div>
 
         {/* <div className="profile_in_game persona online">
           <div className="profile_in_game_header">Currently Online</div>

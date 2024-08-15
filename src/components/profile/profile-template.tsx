@@ -1,15 +1,24 @@
 // Main component for the Steam profile
 
+import { useState } from "react";
 import useGlobalStore from "../../store/useGlobalStore";
 import ArtworkPanel from "../panel/artwork/artwork-panel";
 import WorkshopPanel from "../panel/workshop/workshop-panel";
+import PopupWindow from "../popup-window/popup-window";
 import ArtworkStats from "../profile-rightcol/artwork/artwork-stats";
 import ProfileContentNavButtons from "./profile-content-navbar/profile-content-nav-buttons";
 import ProfileHeader from "./profile-header/profile-header";
 import "./profile-template.css";
 
 export default function Profile() {
-  const { activeTab } = useGlobalStore();
+  const {
+    activeTab,
+    popupWindowOpen,
+    setPopupWindowOpen,
+    setPopupWindowPos,
+    setPopupWindowSize,
+    popupWindowData,
+  } = useGlobalStore();
 
   return (
     <>
@@ -27,11 +36,7 @@ export default function Profile() {
             </div>
           </div>
 
-          <div
-            role="main"
-            className="responsive_page_template_content"
-            id="responsive_page_template_content"
-          >
+          <div role="main" className="responsive_page_template_content" id="responsive_page_template_content">
             <div className="no_header profile_page">
               <ProfileHeader />
               {/* Profile content */}
@@ -67,10 +72,7 @@ export default function Profile() {
                         <div className="commentthread_area">
                           <div className="commentthread_header">
                             <div className="commentthread_paging has_view_all_link">
-                              <a
-                                className="commentthread_allcommentslink"
-                                href="#"
-                              >
+                              <a className="commentthread_allcommentslink" href="#">
                                 View all
                                 <span>27</span>
                                 comments
@@ -79,21 +81,11 @@ export default function Profile() {
                                 &lt;
                               </a>
                               <span className="commentthread_pagelinks">
-                                <span className="commentthread_pagelink active">
-                                  1
-                                </span>
-                                <span className="commentthread_pagelink">
-                                  2
-                                </span>
-                                <span className="commentthread_pagelink">
-                                  3
-                                </span>
-                                <span className="commentthread_pagelink">
-                                  4
-                                </span>
-                                <span className="commentthread_pagelink">
-                                  5
-                                </span>
+                                <span className="commentthread_pagelink active">1</span>
+                                <span className="commentthread_pagelink">2</span>
+                                <span className="commentthread_pagelink">3</span>
+                                <span className="commentthread_pagelink">4</span>
+                                <span className="commentthread_pagelink">5</span>
                               </span>
                               <span className="commentthread_pagedropdown">
                                 <select>
@@ -110,24 +102,16 @@ export default function Profile() {
                             </div>
                             <div className="commentthread_count">
                               <span className="ellipsis commentthread_count_label">
-                                <span className="commentthread_header_label">
-                                  Comments
-                                </span>
+                                <span className="commentthread_header_label">Comments</span>
                               </span>
                               <div className="commentthread_subscribe_ctn checked">
                                 <span className="commentthread_subscribe_checkbox">
                                   <span className="commentthread_subscribe_check"></span>
                                 </span>
-                                <span className="commentthread_subscribe_desc">
-                                  Subscribe to thread
-                                </span>
+                                <span className="commentthread_subscribe_desc">Subscribe to thread</span>
                               </div>
                               <span className="commentthread_subscribe_hint">
-                                (
-                                <span className="commentthread_subscribe_hint_q">
-                                  ?
-                                </span>
-                                )
+                                (<span className="commentthread_subscribe_hint_q">?</span>)
                               </span>
                             </div>
                             <div style={{ clear: "both" }}></div>
@@ -143,6 +127,19 @@ export default function Profile() {
             </div>
           </div>
         </div>
+
+        {popupWindowOpen && (
+          <PopupWindow
+            title="TEMP_REPLACE"
+            onCloseClicked={() => setPopupWindowOpen(false)}
+            onDragStop={setPopupWindowPos}
+            onResizeStop={setPopupWindowSize}
+            posX={popupWindowData.posX}
+            posY={popupWindowData.posY}
+            width={popupWindowData.width}
+            height={popupWindowData.height}
+          />
+        )}
       </div>
     </>
   );

@@ -1,0 +1,38 @@
+.popup-window-wrapper {
+  border: 1px outset var(--light-gray);
+  background-color: var(--gradient-background);
+  cursor: unset;
+  padding: 5px 5px;
+}
+
+.popup-window-wrapper img {
+  width: 25px;
+}
+
+.popup-window-draggable {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 35px;
+  cursor: move;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  justify-content: space-between;
+}
+
+.popup-window-draggable span {
+  margin-left: 40px;
+}
+
+.popup-window-draggable button {
+  padding: 0 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  margin-right: 6px;
+}

@@ -27,4 +27,21 @@ type ActiveTabDefs = {
   reset: () => void;
 };
 
-type GlobalStoreValues = FileDefs & StatusDefs & ActiveTabDefs & ArtworkShowcaseDefs;
+type AdvancedToolsPopupWindow = {
+  popupWindowOpen: boolean;
+  setPopupWindowOpen: (value: boolean) => void;
+  popupWindowData: {
+    posX?: number;
+    posY?: number;
+    width?: number;
+    height?: number;
+  };
+  setPopupWindowPos: (posX: number, posY: number) => void;
+  setPopupWindowSize: (width: number, height: number) => void;
+};
+
+type GlobalStoreValues = FileDefs &
+  StatusDefs &
+  ActiveTabDefs &
+  ArtworkShowcaseDefs &
+  AdvancedToolsPopupWindow;

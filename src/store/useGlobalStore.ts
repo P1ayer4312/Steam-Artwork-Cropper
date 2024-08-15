@@ -22,6 +22,38 @@ const useGlobalStore = create<GlobalStoreValues>()((set) => ({
   setActiveTab: (value) => set({ activeTab: value }),
 
   // =========================================================
+  popupWindowOpen: false,
+  setPopupWindowOpen: (value) => set({ popupWindowOpen: value }),
+  popupWindowData: {
+    width: undefined,
+    height: undefined,
+    posX: undefined,
+    posY: undefined,
+  },
+  setPopupWindowPos: (posX, posY) => {
+    set((state) => {
+      return {
+        popupWindowData: {
+          ...state.popupWindowData,
+          posX: posX,
+          posY: posY,
+        },
+      };
+    });
+  },
+  setPopupWindowSize: (width, height) => {
+    set((state) => {
+      return {
+        popupWindowData: {
+          ...state.popupWindowData,
+          width: width,
+          height: height,
+        },
+      };
+    });
+  },
+
+  // =========================================================
   artwork: {
     isLoaded: false,
     isMeasured: false,
@@ -59,6 +91,13 @@ const useGlobalStore = create<GlobalStoreValues>()((set) => ({
   // =========================================================
   reset: () => {
     set((state) => ({
+      popupWindowOpen: false,
+      popupWindowData: {
+        width: undefined,
+        height: undefined,
+        posX: undefined,
+        posY: undefined,
+      },
       artwork: {
         ...state.artwork,
         bottomRightSpaceChecked: false,
