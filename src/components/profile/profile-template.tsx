@@ -1,10 +1,10 @@
 // Main component for the Steam profile
 
-import { useState } from "react";
 import useGlobalStore from "../../store/useGlobalStore";
 import ArtworkPanel from "../panel/artwork/artwork-panel";
 import WorkshopPanel from "../panel/workshop/workshop-panel";
-import PopupWindow from "../popup-window/popup-window";
+import AdvancedToolsHandler from "../popup-window/advanced-tools-handler/advanced-tools-handler";
+import PopupWindow from "../popup-window/parent/popup-window";
 import ArtworkStats from "../profile-rightcol/artwork/artwork-stats";
 import ProfileContentNavButtons from "./profile-content-navbar/profile-content-nav-buttons";
 import ProfileHeader from "./profile-header/profile-header";
@@ -130,7 +130,7 @@ export default function Profile() {
 
         {popupWindowOpen && (
           <PopupWindow
-            title="TEMP_REPLACE"
+            title="Advanced Editor"
             onCloseClicked={() => setPopupWindowOpen(false)}
             onDragStop={setPopupWindowPos}
             onResizeStop={setPopupWindowSize}
@@ -138,7 +138,9 @@ export default function Profile() {
             posY={popupWindowData.posY}
             width={popupWindowData.width}
             height={popupWindowData.height}
-          />
+          >
+            <AdvancedToolsHandler />
+          </PopupWindow>
         )}
       </div>
     </>

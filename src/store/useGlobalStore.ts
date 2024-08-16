@@ -10,6 +10,7 @@ const useGlobalStore = create<GlobalStoreValues>()((set) => ({
     height: 0,
     width: 0,
     fileType: "",
+    mediaType: "",
   },
   setFile: (value) => set({ file: value }),
 

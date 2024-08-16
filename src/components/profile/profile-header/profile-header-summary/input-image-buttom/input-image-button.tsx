@@ -2,6 +2,7 @@ import { useRef, ChangeEvent } from "react";
 import "./input-image-button.css";
 import useGlobalStore from "../../../../../store/useGlobalStore";
 import parseMediaFile from "../../../../../functions/parseMediaFile";
+import mediaType from "../../../../../functions/mediaType";
 
 export default function InputImageButton() {
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -23,6 +24,7 @@ export default function InputImageButton() {
         height: mediaData.height,
         width: mediaData.width,
         fileType: file.type,
+        mediaType: mediaType(file.type),
       });
 
       reset();

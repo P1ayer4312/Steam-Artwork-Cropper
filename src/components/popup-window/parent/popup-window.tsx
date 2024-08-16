@@ -1,7 +1,8 @@
 import { Props, Rnd } from "react-rnd";
 import "./popup-window.css";
+import { PropsWithChildren } from "react";
 
-type TPopupWindowProps = {
+interface IPopupWindowProps extends PropsWithChildren {
   title: string;
   closeButton?: boolean;
   posX?: number;
@@ -13,9 +14,9 @@ type TPopupWindowProps = {
   onCloseClicked: () => void;
   onDragStop: (posX: number, posY: number) => void;
   onResizeStop: (width: number, height: number) => void;
-};
+}
 
-export default function PopupWindow(props: TPopupWindowProps) {
+export default function PopupWindow(props: IPopupWindowProps) {
   if (!props.onCloseClicked || !props.onDragStop || !props.onResizeStop) {
     throw new Error("Missing callback functions");
   }
@@ -23,8 +24,8 @@ export default function PopupWindow(props: TPopupWindowProps) {
   const {
     title = "NO_TITLE_PROVIDED",
     closeButton = true,
-    width = 500,
-    height = 400,
+    width = 1000,
+    height = 600,
     minWidth = 500,
     minHeight = 400,
     posX = 100,
@@ -60,7 +61,7 @@ export default function PopupWindow(props: TPopupWindowProps) {
 
   return (
     <Rnd {...rndConfig}>
-      <img src="./img/steam-logo-disconnect.jpg" alt="" />
+      <img className="popup-window-icon" src="./img/steam-logo-disconnect.jpg" alt="" />
       <div className="popup-window-draggable">
         <span>{title}</span>
         {closeButton && (
@@ -69,7 +70,7 @@ export default function PopupWindow(props: TPopupWindowProps) {
           </button>
         )}
       </div>
-      <h1>Hello :D</h1>
+      {props.children ?? <h1>NO_CONTENT</h1>}
     </Rnd>
   );
 }

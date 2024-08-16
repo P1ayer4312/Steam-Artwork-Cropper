@@ -1,0 +1,15 @@
+/* aie = artwork image editor */
+
+.aie-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.aie-img-col {
+  width: 40%;
+}
+
+.aie-img-area-selector img {
+  width: 100%;
+}

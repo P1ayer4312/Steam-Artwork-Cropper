@@ -7,6 +7,7 @@ type FileData = {
   width: number;
   height: number;
   fileType: string;
+  mediaType: "gif" | "image" | "video" | "";
 };
 
 type FileDefs = {

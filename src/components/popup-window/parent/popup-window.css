@@ -1,11 +1,12 @@
 .popup-window-wrapper {
+  z-index: 20;
   border: 1px outset var(--light-gray);
   background-color: var(--gradient-background);
   cursor: unset;
   padding: 5px 5px;
 }
 
-.popup-window-wrapper img {
+.popup-window-icon {
   width: 25px;
 }
 
@@ -35,4 +36,22 @@
   justify-content: center;
   vertical-align: middle;
   margin-right: 6px;
+}
+
+.popup-window-content {
+  border: 1px inset var(--light-gray);
+  height: calc(100% - 90px);
+  margin: 10px 10px 8px 10px;
+  padding: 5px 5px;
+}
+
+.popup-window-footer-buttons {
+  display: flex;
+  float: right;
+  margin-right: 10px;
+  gap: 5px;
+}
+
+.popup-window-footer-buttons button {
+  min-width: 70px;
 }
