@@ -1,3 +1,4 @@
+import AdvancedEditorData from "./advancedEditorData";
 import { ArtworkShowcaseDefs } from "./artworkShowcaseData";
 
 type FileData = {
@@ -25,7 +26,7 @@ type ActiveTabValues = "artwork" | "workshop";
 type ActiveTabDefs = {
   activeTab: ActiveTabValues;
   setActiveTab: (value: ActiveTabValues) => void;
-  reset: () => void;
+  reset: (fullReset?: boolean) => void;
 };
 
 type AdvancedToolsPopupWindow = {
@@ -45,4 +46,5 @@ type GlobalStoreValues = FileDefs &
   StatusDefs &
   ActiveTabDefs &
   ArtworkShowcaseDefs &
-  AdvancedToolsPopupWindow;
+  AdvancedToolsPopupWindow &
+  AdvancedEditorData;

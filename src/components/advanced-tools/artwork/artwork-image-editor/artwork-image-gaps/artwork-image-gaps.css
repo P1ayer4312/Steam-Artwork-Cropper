@@ -1,0 +1,19 @@
+.aie-gaps {
+  position: absolute;
+  -webkit-backdrop-filter: invert(100%);
+  backdrop-filter: invert(100%);
+}
+
+.aie-gaps-right {
+  width: 1%;
+  height: 100%;
+  top: 0;
+  left: 82.2%;
+}
+
+.aie-gaps-left {
+  width: 1%;
+  height: 100%;
+  top: 0;
+  left: 16.5%;
+}

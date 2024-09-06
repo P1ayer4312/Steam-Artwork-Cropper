@@ -90,33 +90,81 @@ const useGlobalStore = create<GlobalStoreValues>()((set) => ({
   },
 
   // =========================================================
-  reset: () => {
-    set((state) => ({
-      popupWindowOpen: false,
-      popupWindowData: {
-        width: undefined,
-        height: undefined,
-        posX: undefined,
-        posY: undefined,
+  advancedEditorData: {
+    isMediaEdited: false,
+    artwork: {
+      gaps: {
+        left: false,
+        right: true,
       },
-      artwork: {
-        ...state.artwork,
-        bottomRightSpaceChecked: false,
-        isMeasured: false,
-        imageSize: {
-          primary: 0,
-          rightCol: 0,
-          original: 0,
-          rightColCropped: 0,
+      imageData: undefined,
+      area: [],
+    },
+  },
+  setAdvancedEditorData: (value) => {
+    set((state) => ({ advancedEditorData: { ...state.advancedEditorData, ...value } }));
+  },
+
+  // =========================================================
+  /**
+   * @param fullReset Set to true to reset all values
+   */
+  reset: (fullReset = false) => {
+    set((state) => {
+      return {
+        popupWindowOpen: false,
+
+        popupWindowData: fullReset
+          ? {
+              width: undefined,
+              height: undefined,
+              posX: undefined,
+              posY: undefined,
+            }
+          : state.popupWindowData,
+
+        artwork: {
+          bottomRightSpaceChecked: false,
+          isMeasured: false,
+          imageSize: {
+            primary: 0,
+            rightCol: 0,
+            original: 0,
+            rightColCropped: 0,
+          },
+          imageResolutions: {
+            original: { width: 0, height: 0 },
+            primary: { width: 0, height: 0 },
+            rightCol: { width: 0, height: 0 },
+            rightColCroppedHeight: 0,
+          },
+          // advancedEditorData: fullReset ? undefined : state.artwork.advancedEditorData,
+          imageLinks: {
+            primary: "",
+            rightCol: "",
+            rightColCropped: "",
+          },
+          isLoaded: false,
+          panelElementRefs: {
+            primaryImg: null,
+            rightColContainer: null,
+            rightColImg: null,
+          },
         },
-        imageResolutions: {
-          original: { width: 0, height: 0 },
-          primary: { width: 0, height: 0 },
-          rightCol: { width: 0, height: 0 },
-          rightColCroppedHeight: 0,
+        // ===
+        advancedEditorData: {
+          isMediaEdited: false,
+          artwork: {
+            gaps: {
+              left: false,
+              right: true,
+            },
+            imageData: undefined,
+            area: [],
+          },
         },
-      },
-    }));
+      };
+    });
   },
 }));
 

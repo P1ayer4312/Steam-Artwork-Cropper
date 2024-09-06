@@ -10,6 +10,12 @@
   width: 40%;
 }
 
+.aie-img-col > div,
 .aie-img-area-selector img {
   width: 100%;
+  position: relative;
+}
+
+.aie-gap {
+  position: absolute;
 }

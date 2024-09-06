@@ -5,6 +5,7 @@ import "./assets/css/profile.css";
 import "./assets/css/profilev2.css";
 import "./assets/css/shared_global.css";
 import "./assets/css/shared_responsive.css";
+import "./assets/css/scrollbar.css";
 import ProfileTemplate from "./components/profile/profile-template";
 import SmallWindowDialog from "./components/dialog/small-window-dialog";
 

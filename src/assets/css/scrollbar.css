@@ -1,0 +1,54 @@
+#root {
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  border: 5px solid black;
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-button:single-button {
+  border: 1px outset var(--light-gray);
+  background-color: var(--gradient-background);
+  background-size: 50%;
+  background-position-x: center;
+  background-position-y: center;
+  background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar-button:single-button:active {
+  border: 1px inset var(--light-gray);
+}
+
+::-webkit-scrollbar-button:single-button:vertical {
+  height: 18px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background-color: var(--slider-background);
+}
+
+/* Add arrows to the scrollbar buttons */
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: url("./img/scrollbar/up.svg");
+}
+
+::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: url("./img/scrollbar/down.svg");
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  background-image: url("./img/scrollbar/left.svg");
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  background-image: url("./img/scrollbar/right.svg");
+}
+
+/* For Firefox only add basic colors and small tweaks */
+@media screen and (min--moz-device-pixel-ratio: 0) {
+  * {
+    scrollbar-color: var(--gradient-background) var(--slider-background);
+  }
+}

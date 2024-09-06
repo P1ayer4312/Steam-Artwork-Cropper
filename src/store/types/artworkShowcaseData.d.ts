@@ -1,3 +1,5 @@
+import { FileData } from "./useGlobalStore";
+
 export type Resolution = {
   width: number;
   height: number;

@@ -27,7 +27,7 @@ export default function InputImageButton() {
         mediaType: mediaType(file.type),
       });
 
-      reset();
+      reset(true);
     }
   }
 

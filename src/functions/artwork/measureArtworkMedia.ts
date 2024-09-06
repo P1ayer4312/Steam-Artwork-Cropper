@@ -60,7 +60,6 @@ export default async function measureArtworkMedia(
     function checkResolutions() {
       // Measure current images on the DOM
       const primaryImgHeight = Math.round(getComputedValueFor(primaryImg, "height") as number);
-
       const rightColImgHeight = Math.round(getComputedValueFor(rightColImg, "height") as number);
 
       if (primaryImgHeight !== rightColImgHeight) {
@@ -122,6 +121,7 @@ export default async function measureArtworkMedia(
       }
 
       const measuredData: MeasuresData = {
+        advancedEditorData: undefined,
         imageLinks: {
           primary: primaryImgDataUrl,
           rightCol: rightColImgDataUrl,

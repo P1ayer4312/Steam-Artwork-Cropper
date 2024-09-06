@@ -43,6 +43,9 @@
   height: calc(100% - 90px);
   margin: 10px 10px 8px 10px;
   padding: 5px 5px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: var(--dark-green-background);
 }
 
 .popup-window-footer-buttons {

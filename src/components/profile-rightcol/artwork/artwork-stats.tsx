@@ -33,7 +33,7 @@ export default function ArtworkStats() {
 
       // Measure the bottom space and store the cropped image string
       // prettier-ignore
-      const { rightColDataUrl, rightColHeight, rightColSize } = 
+      const { rightColDataUrl, rightColHeight, rightColSize } =
         await measureArtworkBottomRightSpace(artwork, file);
 
       // Update the right col image state

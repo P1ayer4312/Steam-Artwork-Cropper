@@ -1,6 +1,7 @@
 import { Resolution } from "../../store/types/artworkShowcaseData";
 import gifsicle from "gifsicle-wasm-browser";
 import getGifInfo from "./getGifInfo";
+import extractGifFrames from "./extractGifFrames";
 
 export type TGifProps = {
   imageData: File | Blob | ArrayBuffer;
@@ -13,7 +14,9 @@ export async function cropGif(gifProps: TGifProps) {
   const gifData = gifProps.imageData;
 
   const gifInfo = await getGifInfo(gifData);
-  console.log(gifInfo);
+  const items = await extractGifFrames(gifData);
+  console.log("info:", gifInfo);
+  console.log("frames:", items);
 
   if (gifProps.resize) {
     return await gifsicle

@@ -1,51 +1,69 @@
 import { useEffect, useRef } from "react";
 import useGlobalStore from "../../../store/useGlobalStore";
 import measureArtworkMedia from "../../../functions/artwork/measureArtworkMedia";
+import { FileData } from "../../../store/types/useGlobalStore";
 
 export default function ArtworkPanel() {
   const primaryImgRef = useRef<HTMLImageElement>(null);
   const rightColImgRef = useRef<HTMLImageElement>(null);
   const rightColContainerRef = useRef<HTMLImageElement>(null);
-  const { file, artwork, setArtwork, setStatus } = useGlobalStore();
-  function statusCallback(message: string) {
-    setStatus(message);
-  }
+  const { file, artwork, setArtwork, setStatus, advancedEditorData } = useGlobalStore();
 
   // Used as an event listener for triggering image measurement
   // and loading it on tab change
   useEffect(() => {
     (async () => {
-      if (!artwork.isMeasured && file.data) {
-        // Pass the image elements to be used for the measurement
-        setStatus("Measuring, please wait....");
-        const measuredData = await measureArtworkMedia(primaryImgRef.current!, rightColImgRef.current!, file, statusCallback);
+      if (artwork.isMeasured) return;
 
-        setArtwork({
-          isMeasured: true,
-          ...measuredData,
-        });
-
-        setStatus("Done");
+      function statusCallback(message: string) {
+        setStatus(message);
       }
-    })();
-  }, [file, setArtwork, setStatus, artwork]);
 
-  useEffect(() => {
-    // Pass refs to panel elements
-    setArtwork({
-      panelElementRefs: {
-        primaryImg: primaryImgRef.current,
-        rightColImg: rightColImgRef.current,
-        rightColContainer: rightColContainerRef.current,
-      },
-    });
-  }, [setArtwork]);
+      setStatus("Measuring, please wait....");
+
+      let fileData = file;
+      if (advancedEditorData.isMediaEdited) {
+        fileData = advancedEditorData.artwork.imageData!;
+      }
+
+      if (!fileData.dataUrl) return;
+
+      // if (file.data) {
+      // Pass the image elements to be used for the measurement
+      const measuredData = await measureArtworkMedia(
+        primaryImgRef.current!,
+        rightColImgRef.current!,
+        fileData,
+        statusCallback
+      );
+
+      setArtwork({
+        ...measuredData,
+        isMeasured: true,
+        panelElementRefs: {
+          primaryImg: primaryImgRef.current,
+          rightColImg: rightColImgRef.current,
+          rightColContainer: rightColContainerRef.current,
+        },
+      });
+
+      setStatus("Done");
+      // }
+    })();
+  }, [
+    file,
+    setArtwork,
+    setStatus,
+    artwork,
+    artwork.isMeasured,
+    advancedEditorData.isMediaEdited,
+    advancedEditorData.artwork.imageData,
+  ]);
 
   return (
     <>
       <div className="profile_customization myart">
         {/* <div className="profile_customization_header">Artwork Showcase</div> */}
-
         <div className="profile_customization_block">
           <div className="screenshot_showcase">
             <div className="screenshot_showcase_primary showcase_slot">
@@ -55,10 +73,7 @@ export default function ArtworkPanel() {
               <div className="screenshot_showcase_itemname"> </div>
               <div className="screenshot_showcase_stats"></div>
             </div>
-            <div
-              className="screenshot_showcase_rightcol"
-              ref={rightColContainerRef}
-            >
+            <div className="screenshot_showcase_rightcol" ref={rightColContainerRef}>
               <div className="screenshot_showcase_smallscreenshot showcase_slot">
                 <div className="screenshot_showcase_screenshot modalContentLink">
                   <img
